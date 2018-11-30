@@ -31,7 +31,7 @@ app.post('/addUsers', function (req, res){
 		data["user4"] = user["user4"];
 		console.log(data);
 		res.send(JSON.stringify(data));
-	}),
+	});
 })
 
 let server = app.listen(8081, function (){
