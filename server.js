@@ -24,6 +24,34 @@ let user ={
 	}
 
 }
+
+/* Method Get user by id = récup la ressource d'un user par son id */
+app.get('/:id', function (req, res){
+	fs.readFile(__dirname + "/" + "users.json", 'utf8', function (err,data){
+	if(err) throw err;
+		let users= JSON.parse(data);
+
+		let user = users["user" + req.params.id]
+		//Display user indo by id
+		console.log("User Info by id:" + JSON.stringify(user));
+		res.send(JSON.stringify(user));
+	});	
+})
+
+/* method >deleteUser : supp ressource user
+*/
+
+app.delete('/deleteUser', function(req, res){
+	fs.readFile(__dirname + "/" + "users.json", 'utf8', function (err,data){
+
+		data=JSON.parse(data);
+		//delete un user par son id
+		delete data ["user"+ 2];
+		console.log("DeleteUser" + data);
+		res.send(JSON.stringify(data));
+	});	
+})
+
 /* method POST: cration d'une ressource USER */
 app.post('/addUsers', function (req, res){
 	fs.readFile(__dirname + "/" + "users.json", 'utf8', function (err,data){
@@ -33,6 +61,8 @@ app.post('/addUsers', function (req, res){
 		res.send(JSON.stringify(data));
 	});
 })
+
+
 
 let server = app.listen(8081, function (){
 	let host = server.address().address
